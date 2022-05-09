@@ -10,7 +10,11 @@
 </head>
 <body>
     <div class="main-container">
-        <p id="x" class="title"></p>
+        <p id="x" class="title mb-3"></p>
+
+        <p id="alpha" class="title"></p>
+        <p id="beta" class="title"></p>
+        <p id="gamma" class="title"></p>
 
         <button onclick="getLocation()">Get Location</button>
     </div>
@@ -28,6 +32,14 @@
         function showPosition(position) {
           x.innerHTML = "Latitude: " + position.coords.latitude +
           "<br>Longitude: " + position.coords.longitude;
+        }
+
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", (eventData) => {
+                document.querySelector("#alpha").innerHTML = eventData.alpha
+                document.querySelector("#beta").innerHTML = eventData.beta
+                document.querySelector("#gamma").innerHTML = eventData.gamma
+            })
         }
     </script>
 </body>
