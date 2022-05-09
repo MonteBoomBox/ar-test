@@ -18,12 +18,14 @@
     <script>
         if (window.DeviceOrientationEvent) {
             console.log("Orientation Enabled!")
-
+            
             window.addEventListener("deviceorientation", (e) => {
                 document.querySelector("#x").innerHTML = "ghjgjhgjhgj"
                 document.querySelector("#y").innerHTML = e.gamma
                 document.querySelector("#z").innerHTML = e.alpha
-            })
+            }, false)
+        } else {
+            console.log("Orientation not Enabled")
         }
     </script>
 </body>
