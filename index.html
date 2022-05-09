@@ -10,22 +10,24 @@
 </head>
 <body>
     <div class="main-container">
-        <p id="x" class="title">sdsfsfds</p>
-        <p id="y" class="title"></p>
-        <p id="z" class="title"></p>
+        <p id="x" class="title"></p>
+
+        <button onclick="getLocation()">Get Location</button>
     </div>
 
     <script>
-        if (window.DeviceOrientationEvent) {
-            console.log("Orientation Enabled!")
-            
-            window.addEventListener("deviceorientation", (e) => {
-                document.querySelector("#x").innerHTML = "ghjgjhgjhgj"
-                document.querySelector("#y").innerHTML = e.gamma
-                document.querySelector("#z").innerHTML = e.alpha
-            }, false)
-        } else {
-            console.log("Orientation not Enabled")
+        var x = document.getElementById("x");
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(showPosition);
+          } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+        
+        function showPosition(position) {
+          x.innerHTML = "Latitude: " + position.coords.latitude +
+          "<br>Longitude: " + position.coords.longitude;
         }
     </script>
 </body>
