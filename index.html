@@ -7,20 +7,69 @@
   <title>Location</title>
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous' referrerpolicy='no-referrer' />
-  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+  <style>
+    .center {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .arrow {
+      margin-top: 1rem;
+      width: 20px;
+      height: 60px;
+      background-color: cornflowerblue;
+      border-radius: 12px 12px 0px 0;
+    }
+  </style>
 </head>
 <body>
-  <a-scene
-    vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-  >
-    <a-text
-      value="Test"
-      scale="90 90 90"
-      gps-entity-place="latitude: 18.498203; longitude: 73.8021481;"
-    ></a-text>
-    <a-camera gps-camera rotation-reader></a-camera>
-  </a-scene>
+  <div class="p-4 center">
+    <p class="title" id="x">X Rotation</p>
+    <p class="title" id="y">Y Rotation</p>
+    <p class="title" id="z">Z Rotation</p>
+
+    <div class="arrow"></div>
+
+    <p class="title" id="lat"></p>
+    <p class="title" id="lon"></p>
+  </div>
+
+  <script>
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener("deviceorientation", (e) => {
+        
+        var x = e.beta.toFixed()
+        var y = e.gamma.toFixed()
+        var z = e.alpha.toFixed()
+
+        document.getElementById("x").textContent = `X: ${x}`
+        document.getElementById("y").textContent = `Y: ${y}`
+        document.getElementById("z").textContent = `Z: ${z}`
+
+        const location = 173
+
+        document.querySelector(".arrow").style.transform = `rotate(${-z - (-location)}deg)`
+      })
+    } else {
+      console.log("DeviceOrientation not supported");
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(showLocation)
+    } else {
+      document.getElementById("lat") = "No Geo"
+    }
+
+    function showLocation(position) {
+      document.getElementById("lat") = position.coords.latitude
+      document.getElementById("lon") = position.coords.longitude
+    }
+  </script>
 </body>
 </html>
