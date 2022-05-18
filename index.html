@@ -41,6 +41,8 @@
   </div>
 
   <script>
+    navigator.geolocation.watchPosition(showLocation)
+    
     if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", (e) => {
         
@@ -54,21 +56,15 @@
 
         const location = 173
 
-        document.querySelector(".arrow").style.transform = `rotate(${-z - (-location)}deg)`
+        document.querySelector(".arrow").style.transform = `rotate(${-location - (-z)}deg)`
       })
     } else {
       console.log("DeviceOrientation not supported");
     }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(showLocation)
-    } else {
-      document.getElementById("lat") = "No Geo"
-    }
-
     function showLocation(position) {
-      document.getElementById("lat") = position.coords.latitude
-      document.getElementById("lon") = position.coords.longitude
+      document.getElementById("lat").textContent = position.coords.latitude
+      document.getElementById("lon").textContent = position.coords.longitude
     }
   </script>
 </body>
