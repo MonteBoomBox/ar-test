@@ -34,6 +34,8 @@
     <p class="title" id="y">Y Rotation</p>
     <p class="title" id="z">Z Rotation</p>
 
+    <p class="title" id="location"></p>
+
     <div class="arrow"></div>
 
     <p class="title" id="lat"></p>
@@ -41,18 +43,47 @@
   </div>
 
   <script>
+    
+    const locationData = [
+      {
+        name: "Sheetal Restaurant",
+        latitude: 18.5023979,
+        longitude: 73.8160468,
+        tolerance: 0.502381
+      },
+      {
+        name: "Kumar Parisar C-2",
+        latitude: 18.498932699245525,
+        longitude: 73.80233292355648,
+        tolerance: 0.498930731335477
+      },
+      {
+        name: "Kumar Parisar D",
+        latitude: 18.4982001,
+        longitude: 73.8020911,
+        tolerance: 0.497998864592137
+      },
+      {
+        name: "Dominos Pizza",
+        latitude: 18.5022102,
+        longitude: 73.8157836,
+        tolerance: 0.50224560279233
+      },
+    ]
+
+
     navigator.geolocation.watchPosition(showLocation)
     
     if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", (e) => {
         
-        var x = e.beta.toFixed()
-        var y = e.gamma.toFixed()
-        var z = e.alpha.toFixed()
+        var x = e.beta
+        var y = e.gamma
+        var z = e.alpha
 
-        document.getElementById("x").textContent = `X: ${x}`
-        document.getElementById("y").textContent = `Y: ${y}`
-        document.getElementById("z").textContent = `Z: ${z}`
+        document.getElementById("x").textContent = `X: ${x.toFixed()}`
+        document.getElementById("y").textContent = `Y: ${y.toFixed()}`
+        document.getElementById("z").textContent = `Z: ${z.toFixed()}`
 
         const location = 173
 
@@ -63,8 +94,33 @@
     }
 
     function showLocation(position) {
-      document.getElementById("lat").textContent = position.coords.latitude
-      document.getElementById("lon").textContent = position.coords.longitude
+      
+      const latitude = position.coords.latitude
+      const longitude = position.coords.longitude
+
+      var latTrue = false
+      var lonTrue = false
+
+      document.getElementById("lat").textContent = latitude
+      document.getElementById("lon").textContent = longitude
+
+      const location = locationData[1]
+
+      if (latitude < (location.latitude + location.tolerance) || latitude < (location.latitude - location.tolerance)) {
+        latTrue = true
+      } else {
+        latTrue = false
+      }
+
+      if (longitude < (location.longitude + location.tolerance) || longitude < (location.longitude - location.tolerance)) {
+        lonTrue = true
+      } else {
+        lonTrue = false
+      }
+
+      if (lonTrue && latTrue) {
+        document.getElementById("location").textContent = locationData[1].name
+      }
     }
   </script>
 </body>
