@@ -49,7 +49,7 @@
         name: "Sheetal Restaurant",
         latitude: 18.5023979,
         longitude: 73.8160468,
-        tolerance: 0.502381
+        tolerance: 0.0000659
       },
       {
         name: "Kumar Parisar C-2",
@@ -104,30 +104,28 @@
       document.getElementById("lat").textContent = latitude
       document.getElementById("lon").textContent = longitude
 
-      const location = locationData[1]
+      // const location = locationData[1]
 
-      if (latitude < (location.latitude + location.tolerance) || latitude < (location.latitude - location.tolerance)) {
-        latTrue = true
-      } else {
-        latTrue = false
-      }
-
-      if (longitude < (location.longitude + location.tolerance) || longitude < (location.longitude - location.tolerance)) {
-        lonTrue = true
-      } else {
-        lonTrue = false
-      }
-
-      if (lonTrue && latTrue) {
-        document.getElementById("location").textContent = locationData[1].name
-      } else {
-        document.getElementById("location").textContent = "Not in location"
-      }
+      locationData.map((location) => {
+        if (latitude < (location.latitude + location.tolerance) || latitude < (location.latitude - location.tolerance)) {
+          latTrue = true
+        } else {
+          latTrue = false
+        }
+  
+        if (longitude < (location.longitude + location.tolerance) || longitude < (location.longitude - location.tolerance)) {
+          lonTrue = true
+        } else {
+          lonTrue = false
+        }
+  
+        if (lonTrue && latTrue) {
+          document.getElementById("location").textContent = locationData[1].name
+        } else {
+          document.getElementById("location").textContent = "Not in location"
+        }
+      })
     }
   </script>
 </body>
 </html>
-
-
-<!-- 18.498992,73.8017058 -->
-<!-- 18.498855,73.8017068 -->
