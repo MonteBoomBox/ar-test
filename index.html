@@ -40,6 +40,11 @@
 
     <p class="title" id="lat"></p>
     <p class="title" id="lon"></p>
+
+    <div class="buttons">
+      <button class="button" onclick="locationIndex = 0">Roma Building</button>
+      <button class="button" onclick="locationIndex = 1">C-2</button>
+    </div>
   </div>
 
   <script>
@@ -56,22 +61,10 @@
         latitude: 18.498932699245525,
         longitude: 73.80233292355648,
         tolerance: 0.00009530075447
-      },
-      {
-        name: "Kumar Parisar D",
-        latitude: 18.4982001,
-        longitude: 73.8020911,
-        tolerance: 0.497998864592137
-      },
-      {
-        name: "Dominos Pizza",
-        latitude: 18.5022102,
-        longitude: 73.8157836,
-        tolerance: 0.50224560279233
-      },
+      }
     ]
 
-
+    var locationIndex = 0
     navigator.geolocation.watchPosition(showLocation)
     
     if (window.DeviceOrientationEvent) {
@@ -104,27 +97,25 @@
       document.getElementById("lat").textContent = latitude
       document.getElementById("lon").textContent = longitude
 
-      // const location = locationData[1]
+      const location = locationData[locationIndex]
 
-      locationData.map((location) => {
-        if (latitude < (location.latitude + location.tolerance) || latitude < (location.latitude - location.tolerance)) {
-          latTrue = true
-        } else {
-          latTrue = false
-        }
-  
-        if (longitude < (location.longitude + location.tolerance) || longitude < (location.longitude - location.tolerance)) {
-          lonTrue = true
-        } else {
-          lonTrue = false
-        }
-  
-        if (lonTrue && latTrue) {
-          document.getElementById("location").textContent = locationData[1].name
-        } else {
-          document.getElementById("location").textContent = "Not in location"
-        }
-      })
+      if (latitude < (location.latitude + location.tolerance) || latitude < (location.latitude - location.tolerance)) {
+        latTrue = true
+      } else {
+        latTrue = false
+      }
+
+      if (longitude < (location.longitude + location.tolerance) || longitude < (location.longitude - location.tolerance)) {
+        lonTrue = true
+      } else {
+        lonTrue = false
+      }
+
+      if (lonTrue && latTrue) {
+        document.getElementById("location").textContent = locationData[locationIndex].name
+      } else {
+        document.getElementById("location").textContent = "Not in location"
+      }
     }
   </script>
 </body>
