@@ -30,16 +30,16 @@
 </head>
 <body>
   <div class="p-4 center">
-    <p class="title" id="x">X Rotation</p>
+    <!-- <p class="title" id="x">X Rotation</p>
     <p class="title" id="y">Y Rotation</p>
-    <p class="title" id="z">Z Rotation</p>
+    <p class="title" id="z">Z Rotation</p> -->
 
     <p class="title" id="location"></p>
 
     <div class="arrow"></div>
 
-    <p class="title" id="lat"></p>
-    <p class="title" id="lon"></p>
+    <!-- <p class="title" id="lat"></p>
+    <p class="title" id="lon"></p> -->
     <p class="title" id="distance"></p>
 
     <div class="buttons">
@@ -56,7 +56,7 @@
         name: "Roma Apartments",
         latitude: 18.499505,
         longitude: 73.811652,
-        tolerance: 10
+        tolerance: 10,
       },
       {
         name: "Basketball Ground",
@@ -82,9 +82,9 @@
         var y = e.gamma
         var z = e.alpha
 
-        document.getElementById("x").textContent = `X: ${x.toFixed()}`
-        document.getElementById("y").textContent = `Y: ${y.toFixed()}`
-        document.getElementById("z").textContent = `Z: ${z.toFixed()}`
+        // document.getElementById("x").textContent = `X: ${x.toFixed()}`
+        // document.getElementById("y").textContent = `Y: ${y.toFixed()}`
+        // document.getElementById("z").textContent = `Z: ${z.toFixed()}`
 
         const location = 173
 
@@ -101,8 +101,8 @@
 
       var inLocation = false
 
-      document.getElementById("lat").textContent = latitude
-      document.getElementById("lon").textContent = longitude
+      // document.getElementById("lat").textContent = latitude
+      // document.getElementById("lon").textContent = longitude
       
       const location = locationData[locationIndex]
       
