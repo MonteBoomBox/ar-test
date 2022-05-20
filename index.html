@@ -42,10 +42,10 @@
     <p class="title" id="lon"></p>
     <p class="title" id="distance"></p>
 
-    <!-- <div class="buttons">
+    <div class="buttons">
       <button class="button" onclick="locationIndex = 0">Roma Building</button>
       <button class="button" onclick="locationIndex = 1">C-2</button>
-    </div> -->
+    </div>
   </div>
 
   <script>
@@ -65,7 +65,7 @@
       }
     ]
 
-    var locationIndex = 1
+    var locationIndex = 0
     navigator.geolocation.watchPosition(showLocation)
     
     if (window.DeviceOrientationEvent) {
