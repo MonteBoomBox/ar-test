@@ -40,11 +40,12 @@
 
     <p class="title" id="lat"></p>
     <p class="title" id="lon"></p>
+    <p class="title" id="distance"></p>
 
-    <div class="buttons">
+    <!-- <div class="buttons">
       <button class="button" onclick="locationIndex = 0">Roma Building</button>
       <button class="button" onclick="locationIndex = 1">C-2</button>
-    </div>
+    </div> -->
   </div>
 
   <script>
@@ -54,17 +55,17 @@
         name: "Roma Apartments",
         latitude: 18.49926,
         longitude: 73.8112388,
-        tolerance: 0.000023
+        tolerance: 10
       },
       {
         name: "Kumar Parisar C-2",
         latitude: 18.498932699245525,
         longitude: 73.80233292355648,
-        tolerance: 0.00009530075447
+        tolerance: 10
       }
     ]
 
-    var locationIndex = 0
+    var locationIndex = 1
     navigator.geolocation.watchPosition(showLocation)
     
     if (window.DeviceOrientationEvent) {
@@ -91,31 +92,43 @@
       const latitude = position.coords.latitude
       const longitude = position.coords.longitude
 
-      var latTrue = false
-      var lonTrue = false
+      var inLocation = false
 
       document.getElementById("lat").textContent = latitude
       document.getElementById("lon").textContent = longitude
-
+      
       const location = locationData[locationIndex]
+      
+      var distance = getDistance(latitude, longitude, location.latitude, location.longitude)
+      document.getElementById("distance").textContent = distance
 
-      if (latitude < (location.latitude + location.tolerance) || latitude < (location.latitude - location.tolerance)) {
-        latTrue = true
+      if (distance < location.tolerance) {
+        inLocation = true
       } else {
-        latTrue = false
+        inLocation = false
       }
 
-      if (longitude < (location.longitude + location.tolerance) || longitude < (location.longitude - location.tolerance)) {
-        lonTrue = true
-      } else {
-        lonTrue = false
-      }
-
-      if (lonTrue && latTrue) {
+      if (inLocation) {
         document.getElementById("location").textContent = locationData[locationIndex].name
       } else {
         document.getElementById("location").textContent = "Not in location"
       }
+    }
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+      var radlat1 = Math.PI * lat1/180;
+      var radlat2 = Math.PI * lat2/180;
+      var theta = lon1-lon2;
+      var radtheta = Math.PI * theta/180;
+      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180/Math.PI;
+      dist = dist * 60 * 1.1515;
+      dist = dist * 1609.34
+      return dist;
     }
   </script>
 </body>
