@@ -73,7 +73,7 @@
     ]
 
     var locationIndex = 0
-    navigator.geolocation.watchPosition(showLocation)
+    navigator.geolocation.watchPosition(showLocation, { timeout: 1000 })
     
     if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", (e) => {
