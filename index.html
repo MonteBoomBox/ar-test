@@ -73,7 +73,7 @@
     ]
 
     var locationIndex = 0
-    navigator.geolocation.watchPosition(showLocation, { timeout: 1000 })
+    navigator.geolocation.watchPosition(showLocation, errorLocation, { timeout: 2000 })
     
     if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", (e) => {
@@ -92,6 +92,10 @@
       })
     } else {
       console.log("DeviceOrientation not supported");
+    }
+
+    function errorLocation(position) {
+      console.log("Cant show position")
     }
 
     function showLocation(position) {
