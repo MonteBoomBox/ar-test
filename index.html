@@ -38,10 +38,11 @@
 
     <div class="arrow"></div>
 
-    <!-- <p class="title" id="lat"></p>
-    <p class="title" id="lon"></p> -->
+    <p class="title" id="lat"></p>
+    <p class="title" id="lon"></p>
     <p class="title" id="distance"></p>
 
+    <a class="button" href="./location.html">Roma Building</a>
     <div class="buttons">
       <button class="button" onclick="locationIndex = 0">Roma Building</button>
       <button class="button" onclick="locationIndex = 1">Shiv Shrushti</button>
@@ -105,8 +106,8 @@
 
       var inLocation = false
 
-      // document.getElementById("lat").textContent = latitude
-      // document.getElementById("lon").textContent = longitude
+      document.getElementById("lat").textContent = latitude
+      document.getElementById("lon").textContent = longitude
       
       const location = locationData[locationIndex]
       
